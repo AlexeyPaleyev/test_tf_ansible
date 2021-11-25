@@ -1,0 +1,38 @@
+---
+- hosts: web_servers
+#- hosts: localhost
+  tasks:
+  - name: Creates directory
+    file:
+      path: /home/ubuntu/luc-cd
+      state: directory
+  - name: move files  
+    command: "/bin/cp /home/ubuntu/index.html /home/ubuntu/luc-cd/index.html"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: /home/ubuntu/luc-cd/Dockerfile
+      dest: /home/ubuntu/luc-cd/Dockerfile
+      owner: ubuntu
+      group: ubuntu
+      mode: '0644'
+    become: yes
+  - name: Install Docker Module for Python
+    pip:
+      name: docker
+  - name: Build image
+    community.docker.docker_image:
+      name: lux/nginx:latest
+      build:
+        path: /home/ubuntu/luc-cd
+        args:
+          listen_port: 80
+      source: build
+    
+  - name: image start
+    docker_container:
+      name: myapp
+      image: lux/nginx
+      state: started
+      #pull: always
+      ports:
+        - "80:80"
