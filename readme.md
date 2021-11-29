@@ -29,22 +29,20 @@
 6 создает 2 инстанса t2.micro на основе image из п1 в vps  & subnet из п3 с публичным IP и ключем SSH из п 5 
 с user_data скриптом, который генерирует index.html страницу с IP адресом сервера  
 
-ansible
-необходимо указать свои данные в ansible\group_vars\web_servers, host.txt 
-playbook docker.yml
-Скрипт выполняет следующие действия
-1 устанавливает необходимые пакеты: apt-transport-https, ca-certificates, curl, gnupg-agent
-, software-properties-common
-, 
-python3-pip
-2 устанавливает docker
-3 создает каталоги и копирует необходимые файлы на удаленные компьютеры
-4 запускает docker и включает автозапуск
-5 добавляет пользователя ubuntu  в группу docker
+ansible  
+необходимо указать свои данные в ansible\group_vars\web_servers, host.txt   
+playbook docker.yml  
+Скрипт выполняет следующие действия  
+1 устанавливает необходимые пакеты: apt-transport-https, ca-certificates, curl, gnupg-agent 
+, software-properties-common, python3-pip  
+2 устанавливает docker  
+3 создает каталоги и копирует необходимые файлы на удаленные компьютеры  
+4 запускает docker и включает автозапуск  
+5 добавляет пользователя ubuntu  в группу docker  
 
-playbook img.yml
-Скрипт выполняет следующие действия
-1 создает необходимую структуру каталогов и наполняет ее файлами
-2 устанавливает Docker Module for Python
-3 на основе nginx создает image 
-4 запускает контейнер на основе image  из п 3
+playbook img.yml  
+Скрипт выполняет следующие действия  
+1 создает необходимую структуру каталогов и наполняет ее файлами  
+2 устанавливает Docker Module for Python  
+3 на основе nginx создает image   
+4 запускает контейнер на основе image  из п 3  
